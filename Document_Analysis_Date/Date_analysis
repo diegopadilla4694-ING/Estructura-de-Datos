@@ -1,0 +1,33 @@
+# Date and Location Handling in Python
+
+This exercise demonstrates how to manipulate and format objects, specifically dates, using Python's built-in capabilities.
+
+## ogic Breakdown
+
+* **Library Import:** The code uses `from datetime import datetime`, which imports the `datetime` class 
+from the standard library to enable time manipulation.
+
+* **Object Creation:** A `record_date` object is created with the values `(2026, 1, 14, 14, 53)`. 
+This stores a specific point in time: **January 14, 2026, at 2:53 PM**.
+
+* **Date Conversion:** The most important part of the script is the `.strftime()` method. This function 
+converts a date object into readable **text** based on specific format codes.
+
+---
+
+## Line-by-Line Breakdown
+
+Each `print` statement outputs the date in a different format:
+
+| Format Mask | Result Example | Description |
+| :--- | :--- | :--- |
+| `"%Y/%m/%d %H:%M:%S"` | `2026/01/14 14:53:00` | **Standard:** Full date and 24h time. |
+| `"%y/%B/%d %H:%M:%S %p"` | `26/January/14 ... PM` | **Descriptive:** Short year, full month name, and PM indicator. |
+| `"%a, %Y %b %d"` | `Wed, 2026 Jan 14` | **Abbreviated:** Short day and month names. |
+| `"%A, %Y %B %d"` | `Wednesday, 2026 January 14` | **Full:** Complete day and month names. |
+| `"%w"` | `3` | **Weekday:** Day as a number (0=Sun, 3=Wed). |
+| `"%j"` | `014` | **Day of Year:** Shows the 14th day of the year. |
+| `"%W"` | `02` | **Week Number:** Shows the 2nd week of the year. |
+
+
+
