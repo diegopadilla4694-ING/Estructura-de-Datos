@@ -1,47 +1,68 @@
-import random
-
-letters = [
-    'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
-    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
-]
-
-numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
-
-symbols = [
-    '!', '"', '#', '$', '%', '&', "'", '(', ')', '*', '+', ',', '-', '.', '/', ':', ';', '<', '=', '>', '?', '@', '[', '\\', ']', '^', '_', '`', '{', '|', '}', '~'
-]
-
-print("WELCOME CREATE A PASSWORD")
-print("-----------------------------------------------------")
-key_letters = int(input("Enter letters to create your password?\n"))
-key_numbers = int(input("Enter numbers to create your password?\n"))
-key_symbols = int(input("Enter symbols to create your password?\n"))
-
-password_list = []
-
-for char in range(1, key_letters + 1):
-    password_list.append(random.choice(letters))
+import customtkinter as ctk
+import secrets as sec
+import string
+import pyperclip
 
 
-for char in range(1, key_numbers + 1):
-    password_list.append(random.choice(numbers))
+ctk.set_appearance_mode("dark")
+ctk.set_appearance_mode("blue")
+
+class password_suggestion(ctk.CTk):
+    def __init__(self):
+        super().__init__()
 
 
-for char in range(1, key_symbols + 1):
-    password_list.append(random.choice(symbols))
+        self.title("Sugerencia de contraseña")
+        self.geometry("350x150")
+        self.attributes("-topmost", True) 
+        self.resizable(False, False)
+        self.password = self.secret_password
 
-print(password_list)
-random.shuffle(password_list)
-print(password_list)
+        self.label = ctk.CTkLabel(self, text="Usa esta contraseña sugerida:", font=("Arial", 12))
+        self.label.pack(pady=(15, 5))
 
-password = ''
-for char in password_list:
-    password += str(char) 
+        self.entry = ctk.CTkEntry(self, width=250, justify="center", font=("Consolas", 16))
+        self.entry.insert(0, self.password)
+        self.entry.configure(state="readonly") 
+        self.entry.pack(pady=5)
 
-print(f"Your Password is:{password}")
+        self.btn = ctk.CTkButton(self, text="Use password", command=self.copiar_y_cerrar)
+        self.btn.pack(pady=10)
 
 
 
+    def secret_password():
+        letters = string.ascii_letters
+        numbers = string.digits
+        symbols = "!@#$%^&*()-_=+"
+        password_created = letters + numbers + symbols
+
+        password_length = 12
+
+        password_list = [
+             sec.choice(letters),
+             sec.choice(numbers),
+             sec.choice(symbols)
+        ]
 
 
+        for _ in range(password_length - len(password_list)):
+             password_list.append(sec.choice(password_created))
+    
+        sec.SystemRandom().shuffle(password_list)
+        password_final = "".join(password_list)
 
+
+        pyperclip.copy(password_final)
+    
+    
+        print("======================================")
+        print("       PASSWORD SAVED     ")
+        print("======================================")
+        print(f"\nSuggested password: {password_final}")
+        print("\n Check your clipboard")
+
+    
+   
+if __name__== "__main__":
+    password_suggestion()
